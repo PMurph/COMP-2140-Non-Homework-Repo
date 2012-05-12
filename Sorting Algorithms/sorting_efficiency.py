@@ -61,7 +61,8 @@ def quick_sort_rec(seq, max_v, min_v):
 		quick_sort_rec(seq, max_v, big)
 
 def merge_sort(seq):
-	merge_sort_rec(seq, 0, len(seq), [])
+	tmp = [0 for i in seq]
+	merge_sort_rec(seq, 0, len(seq), tmp)
 	
 def merge_sort_rec(seq, min_v, max_v, tmp):
 	if max_v > min_v + 1:
@@ -69,8 +70,36 @@ def merge_sort_rec(seq, min_v, max_v, tmp):
 		merge_sort_rec(seq, min_v, mid_v, tmp)
 		merge_sort_rec(seq, mid_v, max_v, tmp)
 		merge(seq, min_v, mid_v, max_v, tmp)
+
 		
 def merge(seq, min_v, mid_v, max_v, tmp):
+	curr_l = min_v
+	curr_r = mid_v
+	curr_t = min_v
+	while curr_l < mid_v and curr_r < max_v:
+		if seq[curr_l] <= seq[curr_r]:
+			tmp[curr_t] = seq[curr_l]
+			curr_l += 1
+		else:
+			tmp[curr_t] = seq[curr_r]
+			curr_r += 1
+		curr_t += 1
+	if curr_l < mid_v:
+		while curr_l < mid_v:
+			tmp[curr_t] = seq[curr_l]
+			curr_t += 1
+			curr_l += 1
+	elif curr_r < max_v:
+		while curr_r < max_v:
+			tmp[curr_t] = seq[curr_r]
+			curr_t += 1
+			curr_r += 1
+	for i in range(min_v, max_v):
+		seq[i] = tmp[i]
+		
+	
+#Very inefficient implementation		
+def merge_slow(seq, min_v, mid_v, max_v, tmp):
 	curr_l = min_v
 	curr_r = mid_v
 	curr_t = min_v
@@ -96,6 +125,26 @@ def merge(seq, min_v, mid_v, max_v, tmp):
 	for i in range(max_v, len(seq)):
 		tmp[i] = seq[i]
 	seq = [ i for i in tmp ]
+
+def radix_sort(seq):
+	buckets = {}
+	max_length = 0
+	for i in seq:
+		if len(str(i)) > max_length:
+			max_length = len(str(i))
+	for i in range(max_length):
+		buckets = {}
+		for j in seq:
+			radix = (j / 10**i) % 10
+			if buckets.has_key(radix):
+				buckets[radix].append(j)
+			else:
+				buckets[radix] = [j]
+		seq=[]
+		for j in range(10):
+			if buckets.has_key(j):
+				seq += buckets[j]
+	return seq		
 	
 
 def generate_seq(max_v, min_v, length):
