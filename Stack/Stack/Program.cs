@@ -14,7 +14,58 @@ namespace Stack
 
             linkedlistTest();
 
+            stackTest();
+
             Console.Out.WriteLine("====End of Processing====");
+        }
+
+        private static void stackTest()
+        {
+            Stack s = new Stack();
+            string popped = null;
+            bool fullList = false;
+
+            Console.Out.WriteLine("======>Stack Test 1<======");
+            Console.Out.WriteLine(">>Tests whether or not the isEmpty method works with an empty stack");
+            Console.Out.Write("isEmpty() returned: ");
+            Console.Out.WriteLine(s.isEmpty());
+            Console.Out.Write("Test Passed: ");
+            Console.Out.WriteLine(s.isEmpty() == true);
+
+            Console.Out.WriteLine("");
+            Console.Out.WriteLine("======>Stack Test 2<======");
+            Console.Out.WriteLine(">>Tests whether or not the push and pop methods work for an one element stack");
+            s.push("element 1");
+            popped = s.pop();
+            Console.Out.WriteLine("pop() returned: " + popped);
+            Console.Out.Write("Test Passed: ");
+            Console.Out.WriteLine(String.Equals(popped, "element 1"));
+            
+            Console.Out.WriteLine("");
+            Console.Out.WriteLine("======>Stack Test 3<======");
+            Console.Out.WriteLine(">>Tests whether or not the multiple pushes and top methods work");
+            s.push(popped);
+            s.push("element 2");
+            Console.Out.WriteLine("top() returned: " + s.top());
+            Console.Out.Write("Test Passed: ");
+            Console.Out.WriteLine(String.Equals(s.top(), "element 2"));
+
+            Console.Out.WriteLine("");
+            Console.Out.WriteLine("======>Stack Test 4<======");
+            Console.Out.WriteLine(">>Tests whether or not multiple pushes and pops work and isEmpty works for a stack with items in it" +
+                "and a stack with all of its items removed");
+            s.push("element 3");
+            fullList = s.isEmpty();
+            Console.Out.Write("isEmpty() (on stack with 3 items in it) returned: ");
+            Console.Out.WriteLine(fullList);
+            s.pop();
+            s.pop();
+            s.pop();
+            Console.Out.Write("isEmpty() (on stack with all items removed) returned: ");
+            Console.Out.WriteLine(s.isEmpty());
+            Console.Out.Write("Test Passed: ");
+            Console.Out.WriteLine(s.isEmpty() == true && fullList == false);
+                
         }
 
         private static void linkedlistTest()
@@ -57,6 +108,14 @@ namespace Stack
             Console.Out.WriteLine(ll.contains("node 1") == false && ll.contains("node 2") == true && ll.contains("node 3") == true && ll.contains("node 4") == false &&
                 ll.getSize() == 2 && String.Equals(ll.toString(), "( node 2 , node 3 )"));
 
+            Console.Out.WriteLine("");
+            Console.Out.WriteLine("======>LinkedList Test 5<======");
+            Console.Out.WriteLine(">>Tests whether or not the linkedlist's getDataAtFront method works");
+            Console.Out.WriteLine("getDataAtFront() returned: " + ll.getDataAtFront());
+            Console.Out.Write("Test Passed: ");
+            Console.Out.WriteLine(String.Equals(ll.getDataAtFront(), "node 2"));
+            Console.Out.WriteLine("");
+
         }
 
         private static void nodeTest()
@@ -86,6 +145,51 @@ namespace Stack
             Console.Out.Write("Test Passed: ");
             Console.Out.WriteLine(String.Equals(node1.getData(), node1.getNext().getNext().getData()));
             Console.Out.WriteLine("");
+        }
+    }
+
+    class Stack
+    {
+        LinkedList stackElements;
+
+        public Stack()
+        {
+            stackElements = new LinkedList();
+        }
+
+        public void push(string toAdd)
+        {
+            stackElements.insertAtFront(toAdd);
+        }
+
+        public string pop()
+        {
+            string toReturn = null;
+
+            if (stackElements.getSize() > 0)
+            {
+                toReturn = stackElements.getDataAtFront();
+                stackElements.deleteFromFront();
+            }
+
+            return toReturn;
+        }
+
+        public string top()
+        {
+            return stackElements.getDataAtFront();
+        }
+
+        public bool isEmpty()
+        {
+            if (stackElements.getSize() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
@@ -202,6 +306,18 @@ namespace Stack
             }
 
             toReturn += " )";
+
+            return toReturn;
+        }
+
+        public string getDataAtFront()
+        {
+            string toReturn = null;
+
+            if (top != null)
+            {
+                toReturn = top.getData();
+            }
 
             return toReturn;
         }
