@@ -17,34 +17,53 @@ namespace Queue
 
     class CircularLinkedList
     {
-        Node dummyNode;
+        BackLinkedNode dummyNode;
         int size;
 
         public CircularLinkedList()
         {
-            dummyNode = new Node("dUmMy");
+            dummyNode = new BackLinkedNode("dUmMy");
             dummyNode.setNext(dummyNode);
             size = 0;
         }
 
-
+        public void insertAtFront(string newData)
+        {
+            BackLinkedNode newNode = null;
+            if(!String.Equals(newData, "dUmMy"))
+            {
+                //If the new data is not the same as the data contained in the dummy node, create a new Node and insert it into the front of the LinkedList
+                newNode = new BackLinkedNode(newData);
+                newNode.setNext(dummyNode.getNext());
+                dummyNode.getNext().setPrev(newNode);
+                newNode.setPrev(dummyNode);
+                dummyNode.setNext(newNode);
+            }
+        }
 
     }
 
-    class Node
+    class BackLinkedNode
     {
         private string data;
-        private Node next;
+        private BackLinkedNode next;
+        private BackLinkedNode prev;
 
-        public Node(string newData)
+        public BackLinkedNode(string newData)
         {
             data = newData;
             next = null;
+            prev = null;
         }
 
-        public void setNext(Node newNext)
+        public void setNext(BackLinkedNode newNext)
         {
             next = newNext;
+        }
+
+        public void setPrev(BackLinkedNode newPrev)
+        {
+            prev = newPrev;
         }
 
         public string getData()
@@ -52,9 +71,14 @@ namespace Queue
             return data;
         }
 
-        public Node getNext()
+        public BackLinkedNode getNext()
         {
             return next;
+        }
+
+        public BackLinkedNode getPrev()
+        {
+            return prev;
         }
 
         public string toString()
