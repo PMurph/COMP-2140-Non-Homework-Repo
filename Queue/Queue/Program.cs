@@ -14,7 +14,36 @@ namespace Queue
         {
             testCircularLinkedList();
 
+            testQueue();
+
             Console.Out.WriteLine("====End of Processing====");
+        }
+
+        private static void testQueue()
+        {
+            Queue q = new Queue();
+            string testData = "";
+
+            Console.Out.WriteLine("======>Queue Test 1<======");
+            Console.Out.WriteLine(">>Tests whether or not the addItem and removeItem methods work");
+            q.addItem("element 1");
+            testData = q.removeItem();
+            Console.Out.WriteLine("removeItem() returned: " + testData);
+            Console.Out.Write("Test Passed: ");
+            Console.Out.WriteLine(String.Equals(testData, "element 1") && q.isEmpty());
+            Console.Out.WriteLine("");
+
+            Console.Out.WriteLine("======>Queue Test 2<======");
+            Console.Out.WriteLine(">>Tests whether or not the getDataAtFront method works");
+            q.addItem("element 1");
+            q.addItem("element 2");
+            q.addItem("element 3");
+            q.removeItem();
+            testData = q.itemAtFront();
+            Console.Out.WriteLine("itemAtFront() returned: " + testData);
+            Console.Out.Write("Test Passed: ");
+            Console.Out.WriteLine(String.Equals(testData, "element 2") && q.isEmpty() == false);
+            Console.Out.WriteLine("");
         }
 
         private static void testCircularLinkedList()
@@ -41,6 +70,16 @@ namespace Queue
             Console.Out.WriteLine("");
 
             Console.Out.WriteLine("======>CircularLinkedList Test 3<======");
+            Console.Out.WriteLine(">>Tests whether or not the getSize and getDataFromBack methods work");
+            Console.Out.Write("getSize() returned: ");
+            Console.Out.WriteLine(cll.getSize());
+            Console.Out.Write("getDataFromBack() returned: ");
+            Console.Out.WriteLine(cll.getDataFromBack());
+            Console.Out.Write("Test Passed: ");
+            Console.Out.WriteLine(String.Equals(cll.getDataFromBack(), "node 1"));
+            Console.Out.WriteLine("");
+
+            Console.Out.WriteLine("======>CircularLinkedList Test 4<======");
             Console.Out.WriteLine(">>Tests whether or not the deleteFromBack method worksand if the isEmpty method works on a CircularLinkedList that has had elements but all the elements have been deleted");
             cll.deleteFromBack();
             cll.deleteFromBack();
@@ -51,6 +90,41 @@ namespace Queue
             Console.Out.WriteLine(cll.isEmpty());
             Console.Out.WriteLine("");
         }
+    }
+
+    class Queue
+    {
+        CircularLinkedList cll;
+
+        public Queue()
+        {
+            cll = new CircularLinkedList();
+        }
+
+        public void addItem(string newData)
+        {
+            cll.insertAtFront(newData);
+        }
+
+        public string removeItem()
+        {
+            string toReturn = cll.getDataFromBack();
+
+            cll.deleteFromBack();
+
+            return toReturn;
+        }
+
+        public string itemAtFront()
+        {
+            return cll.getDataFromBack();
+        }
+
+        public bool isEmpty()
+        {
+            return cll.isEmpty();
+        }
+
     }
 
     class CircularLinkedList
@@ -68,6 +142,18 @@ namespace Queue
         public int getSize()
         {
             return size;
+        }
+
+        public string getDataFromBack()
+        {
+            string toReturn = null;
+
+            if (size > 0)
+            {
+                toReturn = dummyNode.getPrev().getData();
+            }
+
+            return toReturn;
         }
 
         public bool isEmpty()
