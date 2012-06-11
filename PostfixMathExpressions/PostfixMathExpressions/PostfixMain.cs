@@ -43,7 +43,6 @@ namespace PostfixMathExpressions
         private static double processExpression(string expression)
         {
             Stack expressionStack = new Stack();
-            double toReturn = 0.0;
             string expPart1 = null;
             string expPart2 = null;
             string[] parts = expression.Split(' ');
@@ -57,14 +56,14 @@ namespace PostfixMathExpressions
                 }catch(Exception e){
                     if (String.Equals(parts[i], "+"))
                     {
-                        //Plus operation found, get two top elements in stack an evaluate operation
+                        //Plus operation found, get the two top elements in stack an evaluate operation
                         if (expressionStack.top() != null)
                         {
                             expPart1 = expressionStack.pop();
                         }
                         else
                         {
-                            throw new Exception("No enough values to evaluate + operations (at " + i.ToString() + ")");
+                            throw new Exception("Not enough values to evaluate + operations (at " + i.ToString() + ")");
                         }
                         if (expressionStack.top() != null)
                         {
@@ -72,9 +71,72 @@ namespace PostfixMathExpressions
                         }
                         else
                         {
-                            throw new Exception("No enough values to evaluate + operations (at " + i.ToString() + ")");
+                            throw new Exception("Not enough values to evaluate + operations (at " + i.ToString() + ")");
                         }
                         expressionStack.push(operationPlus(expPart1, expPart2));
+                    }
+                    else if(String.Equals(parts[i], "-"))
+                    {
+                        //Minus operation found, get the two top elements in stack an evaluate opeartion
+                        if (expressionStack.top() != null)
+                        {
+                            expPart1 = expressionStack.pop();
+                        }
+                        else
+                        {
+                            throw new Exception("Not enough values to evaluate - operations (at " + i.ToString() + ")");
+                        }
+                        if (expressionStack.top() != null)
+                        {
+                            expPart2 = expressionStack.pop();
+                        }
+                        else
+                        {
+                            throw new Exception("Not enough values to evaluate - operations (at " + i.ToString() + ")");
+                        }
+                        expressionStack.push(operationMinus(expPart1, expPart2));
+                    }
+                    else if (String.Equals(parts[i], "*"))
+                    {
+                        //Multiplication operation found, get the two top elements in stack an evaluate opeartion
+                        if (expressionStack.top() != null)
+                        {
+                            expPart1 = expressionStack.pop();
+                        }
+                        else
+                        {
+                            throw new Exception("Not enough values to evaluate * operations (at " + i.ToString() + ")");
+                        }
+                        if (expressionStack.top() != null)
+                        {
+                            expPart2 = expressionStack.pop();
+                        }
+                        else
+                        {
+                            throw new Exception("Not enough values to evaluate * operations (at " + i.ToString() + ")");
+                        }
+                        expressionStack.push(operationMultiply(expPart1, expPart2));
+                    }
+                    else if (String.Equals(parts[i], "/"))
+                    {
+                        //Multiplication operation found, get the two top elements in stack an evaluate opeartion
+                        if (expressionStack.top() != null)
+                        {
+                            expPart1 = expressionStack.pop();
+                        }
+                        else
+                        {
+                            throw new Exception("Not enough values to evaluate / operations (at " + i.ToString() + ")");
+                        }
+                        if (expressionStack.top() != null)
+                        {
+                            expPart2 = expressionStack.pop();
+                        }
+                        else
+                        {
+                            throw new Exception("Not enough values to evaluate / operations (at " + i.ToString() + ")");
+                        }
+                        expressionStack.push(operationDivide(expPart1, expPart2));
                     }
                     else
                     {
@@ -90,7 +152,34 @@ namespace PostfixMathExpressions
         {
             double exprPart1 = Convert.ToDouble(part1);
             double exprPart2 = Convert.ToDouble(part2);
-            double sum = exprPart1 + exprPart2;
+            double sum = exprPart2 + exprPart1;
+
+            return sum.ToString();
+        }
+
+        private static string operationMinus(string part1, string part2)
+        {
+            double exprPart1 = Convert.ToDouble(part1);
+            double exprPart2 = Convert.ToDouble(part2);
+            double sum = exprPart2 - exprPart1;
+
+            return sum.ToString();
+        }
+
+        private static string operationMultiply(string part1, string part2)
+        {
+            double exprPart1 = Convert.ToDouble(part1);
+            double exprPart2 = Convert.ToDouble(part2);
+            double sum = exprPart2 * exprPart1;
+
+            return sum.ToString();
+        }
+
+        private static string operationDivide(string part1, string part2)
+        {
+            double exprPart1 = Convert.ToDouble(part1);
+            double exprPart2 = Convert.ToDouble(part2);
+            double sum = exprPart2 / exprPart1;
 
             return sum.ToString();
         }
