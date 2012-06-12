@@ -50,6 +50,42 @@ public class HashTable {
 		}
 	}
 	
+	public void delete(String toDelete){
+		int index = 0;
+		if(!empty()){
+			index = retrieveKey(toDelete);
+			if(index != -1){
+				table[index] = null;
+				entries--;
+			}
+		}
+	}
+	
+	public String retrieve(int key){
+		return table[key%tableSize];
+	}
+	
+	public int retrieveKey(String toFind){
+		int toReturn = 0;
+		int searched = 0;
+		
+		if(!empty()){
+			toReturn = hashFunction(toFind);
+			
+			while((table[toReturn] == null || !table[toReturn].equals(toFind)) && prevUsed[toReturn] == true && searched < tableSize){
+				toReturn = (toReturn + collisionFunction(toFind)) % tableSize;
+				searched++;
+			}
+			if(table[toReturn] == null || !table[toReturn].equals(toFind)){
+				toReturn = -1;
+			}
+		}else{
+			toReturn = -1;
+		}
+		
+		return toReturn;
+	}
+	
 	public String toString(){
 		String toReturn = "[ ";
 		
@@ -97,9 +133,9 @@ public class HashTable {
 	private int getClosestPrime(int maxElements){
 		int toReturn = 0;
 		for( int i = 0; i < HashTable.primes.length; i++){
-			if(i == HashTable.primes.length - 1 && maxElements > HashTable.primes[i]){
+			if(i == HashTable.primes.length - 1 && maxElements >= HashTable.primes[i]){
 				toReturn = HashTable.primes[i];
-			}else if( maxElements > HashTable.primes[i] ){
+			}else if( maxElements >= HashTable.primes[i] ){
 				toReturn = HashTable.primes[i];
 			}
 		}
