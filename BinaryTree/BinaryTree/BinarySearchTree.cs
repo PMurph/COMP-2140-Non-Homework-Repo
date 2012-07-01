@@ -44,6 +44,11 @@ namespace BinaryTree
             }
         }
 
+        public void deleteValue(int value)
+        {
+            deleteValueRec(null, root, value);
+        }
+
         public void preorderTraversal()
         {
             preOrderTraversalRec(root);
@@ -63,6 +68,124 @@ namespace BinaryTree
         }
 
         //======Private Methods======
+
+        private void deleteValueRec(BinaryNode prevNode, BinaryNode subTree, int value)
+        {
+            BinaryNode nextNode = null;
+            if (subTree != null)
+            {
+                if (subTree.getData() == value)
+                {
+                    deleteNode(prevNode, subTree, value);
+                }
+                else if (subTree.getData() > value)
+                {
+                    nextNode = subTree.getLeft();
+
+                    deleteValueRec(subTree, nextNode, value);
+                }
+                else
+                {
+                    nextNode = subTree.getRight();
+
+                    deleteValueRec(subTree, nextNode, value);
+                }
+            }
+        }
+
+        private void deleteNode(BinaryNode prev, BinaryNode curr, int value)
+        {
+            BinaryNode temp = null;
+            if (prev == null)
+            {
+                if (root.getLeft() == null && curr.getRight() == null)
+                {
+                    root = null;
+                }
+                else if (root.getLeft() != null && curr.getRight() == null)
+                {
+                    root = root.getLeft();
+                }
+                else if (root.getLeft() == null && curr.getRight() != null)
+                {
+                    root = root.getRight();
+                }
+                else
+                {
+                    temp = root;
+                    root = getNDelNextInOrderNode(null, root);
+                    root.setLeft(temp.getLeft());
+                    root.setRight(temp.getRight());
+                }
+            }
+            else
+            {
+                if (curr.getLeft() != null && curr.getRight() == null)
+                {
+                    if (prev.getData() > value)
+                    {
+                        prev.setLeft(curr.getLeft());
+                    }
+                    else
+                    {
+                        prev.setRight(curr.getRight());
+                    }
+                }
+                else if (curr.getLeft() == null && curr.getRight() != null)
+                {
+                    if (prev.getData() > value)
+                    {
+                        prev.setLeft(curr.getRight());
+                    }
+                    else
+                    {
+                        prev.setRight(curr.getRight());
+                    }
+                }
+                else
+                {
+                    if (prev.getData() > value)
+                    {
+                        temp = curr;
+                        prev.setLeft(getNDelNextInOrderNode(prev, curr));
+                        prev.getLeft().setLeft(curr.getLeft());
+                        prev.getLeft().setRight(curr.getRight());
+                    }
+                    else
+                    {
+                        temp = curr;
+                        prev.setRight(getNDelNextInOrderNode(prev, curr));
+                        prev.getRight().setLeft(curr.getLeft());
+                        prev.getRight().setRight(curr.getRight());
+                    }
+                }
+            }
+        }
+
+        private BinaryNode getNDelNextInOrderNode(BinaryNode prev, BinaryNode currNode)
+        {
+            BinaryNode prevNode = currNode;
+            BinaryNode toReturn = currNode.getRight();
+            bool executed = false;
+
+            while (toReturn.getLeft() != null)
+            {
+                prevNode = toReturn;
+                toReturn = toReturn.getLeft();
+                executed = true;
+            }
+
+            if (executed == true)
+            {
+                prevNode.setLeft(null);
+            }
+            else
+            {
+                prevNode.setRight(null);
+            }
+
+            return toReturn;
+        }
 
         private void postOrderTraversalRec(BinaryNode subTree)
         {
@@ -182,10 +305,21 @@ namespace BinaryTree
             bst.inOrderTraversal();
             Console.Out.WriteLine();
 
-            Console.Out.WriteLine("=====Binary Search Tree Test 5======");
+            Console.Out.WriteLine("======Binary Search Tree Test 5======");
             Console.Out.WriteLine(">Tests (by inspection) a postorder traversal");
             bst.postOrderTraversal();
             Console.Out.WriteLine();
+
+            bst.deleteValue(5);
+            Console.Out.WriteLine("======Binary Search Tree Test 6======");
+            Console.Out.WriteLine(">Tests (by inspection) whether or not a delete has worked");
+            Console.Out.Write("Post-Order Traversal: ");
+            bst.postOrderTraversal();
+            Console.Out.Write("Pre-Order Traversal: ");
+            bst.preorderTraversal();
+            Console.Out.Write("In-Order Traversal: ");
+            bst.inOrderTraversal();
+
         }
     }
 
