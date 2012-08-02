@@ -8,14 +8,19 @@
 public class Edge {
 	private Vertex left;
 	private Vertex right;
+	private int weight;
 	private int direction;
 	
 	public Edge(Vertex l, Vertex r, int direction) throws Exception{
 		left = l;
 		right = r;
 		
+		weight = 1;
+		
 		if( direction < 0 || direction > 2){
 			throw new Exception("Edge direction parameter must be 0(bidirectional), 1(left-to-right), or 2(right-to-left)");
+		}else{
+			this.direction = direction;
 		}
 	}
 	
@@ -27,9 +32,22 @@ public class Edge {
 		return right;
 	}
 	
+	public boolean hasVertex(Vertex v){
+		return left.equals(v) || right.equals(v);
+	}
+	
 	public int getDirection(){
 		return direction;
 	}
+	
+	public int getWeight(){
+		return weight;
+	}
+	
+	public void setWeight(int setWeight){
+		weight = setWeight;
+	}
+	
 	
 	public static Vertex followEdge(Edge toFollow, Vertex start) throws Exception{
 		Vertex toReturn = null;
