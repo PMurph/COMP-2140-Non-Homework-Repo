@@ -60,6 +60,39 @@ public class GraphConsoleUI {
 			toReturn = processAddEdgeInput(parsedInput, g);
 		}else if(parsedInput[0].equalsIgnoreCase("dftraversal") || parsedInput[0].equalsIgnoreCase("dft") || parsedInput[0].equalsIgnoreCase("depthfirsttraversal")){
 			toReturn = processDFTInput(parsedInput, g);
+		}else if(parsedInput[0].equalsIgnoreCase("bftraversal") || parsedInput[0].equalsIgnoreCase("bft") || parsedInput[0].equalsIgnoreCase("breadthfirsttraveral")){
+			toReturn = processBFTInput(parsedInput, g);
+		}
+		
+		return toReturn;
+	}
+	
+	private static boolean processBFTInput(String[] args, Graph g){
+		boolean toReturn = false;
+		int v1 = 0;
+		Queue traversal = null;
+		
+		if(args.length == 2){
+			try{
+				v1 = Integer.parseInt(args[1]);
+				
+				if(g.vertexExists(new Vertex(v1))){
+					traversal = g.breadthFirstTraversal(new Vertex(v1));
+					
+					while(!traversal.isEmpty()){
+						System.out.print(traversal.dequeue().getLabel() + " ");
+					}
+					System.out.println();
+					
+					toReturn = true;
+				}else{
+					System.out.println("Error! Make sure the vertex you are starting the breadth first traversal from exists.");
+				}
+			}catch(NumberFormatException nfe){
+				System.out.println("Error! bftraversal command argument must be an integer.");
+			}
+		}else{
+			System.out.println("Error! bftraversal command must have exactly 1 argument.");
 		}
 		
 		return toReturn;
@@ -186,7 +219,8 @@ public class GraphConsoleUI {
 				"(z = 0 for a bidirectional edge, z = 1 for an edge from y to x, and z = 2 for an edge from x to y)");
 		System.out.printf("%25s     %-12", "addedge x y z", "Add a edge between vertex x and vertex y with direction z. " +
 				"(z = 0 for a bidirectional edge, z = 1 for an edge from y to x, and z = 2 for an edge from x to y)");
-		System.out.printf("%25s     %-12s %n", "dftraversal x", "Prints a depth first traversal beginning at vertex x");
+		System.out.printf("%25s     %-12s %n", "dftraversal x", "Prints a depth first traversal beginning at vertex x.");
+		System.out.printf("%25s     %-12s %n", "bftraversal x", "Prints a breadth first traversal beginning at vertex x.");
 		System.out.printf("%25s     %-12s %n", "labels(or l)", "Lists all the labels of the vertices in the graph");
 		System.out.printf("%25s     %-12s %n", "adjlist(or alist)", "Prints the adjacency list of the graph");
 		System.out.printf("%25s     %-12s %n", "adjmatrix(or amatrix)", "Prints the adjacency matrix of the graph");

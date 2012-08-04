@@ -50,6 +50,52 @@ public class Graph {
 		return toReturn;
 	}
 	
+	public Queue breadthFirstTraversal(Vertex start){
+		Queue toReturn = new Queue();
+		Queue toSearch = new Queue();
+		ArrayList<Vertex> verticesSeen = new ArrayList<Vertex>();
+		Vertex curV = null;
+		Edge curE = null;
+		
+		toSearch.enqueue(start);
+		verticesSeen.add(start);
+		
+		while(!toSearch.isEmpty()){
+			curV = toSearch.dequeue();
+			toReturn.enqueue(curV);
+			
+			for(int i = 0; i < edges.size(); i++){
+				curE = edges.get(i);
+				if( curE.getDirection() == 0){
+					if( curE.getLeft().equals(curV)){
+						if(!inArrayList(verticesSeen, curE.getRight())){
+							toSearch.enqueue(curE.getRight());
+							verticesSeen.add(curE.getRight());
+						}
+					}else{
+						if(!inArrayList(verticesSeen, curE.getLeft())){
+							toSearch.enqueue(curE.getLeft());
+							verticesSeen.add(curE.getLeft());
+						}
+					}
+				}else if(curE.getDirection() == 1 && curE.getLeft().equals(curV)){
+					if(!inArrayList(verticesSeen, curE.getRight())){
+						toSearch.enqueue(curE.getRight());
+						verticesSeen.add(curE.getRight());
+					}
+				}else if(curE.getDirection() == 2 && curE.getRight().equals(curV)){
+					if(!inArrayList(verticesSeen, curE.getLeft())){
+						toSearch.enqueue(curE.getLeft());
+						verticesSeen.add(curE.getLeft());
+					}
+				}
+			}
+		}
+		
+		
+		return toReturn;
+	}
+	
 	public Queue depthFirstTraversal(Vertex start){
 		Queue toReturn = new Queue();
 		Stack toSearch = new Stack();
