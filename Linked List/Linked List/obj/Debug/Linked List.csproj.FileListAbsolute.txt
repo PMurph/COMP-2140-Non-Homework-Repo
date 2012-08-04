@@ -1,0 +1,6 @@
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Linked List\Linked List\bin\Debug\Linked List.exe.config
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Linked List\Linked List\obj\Debug\Linked List.csprojResolveAssemblyReference.cache
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Linked List\Linked List\bin\Debug\Linked List.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Linked List\Linked List\bin\Debug\Linked List.pdb
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Linked List\Linked List\obj\Debug\Linked List.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Linked List\Linked List\obj\Debug\Linked List.pdb

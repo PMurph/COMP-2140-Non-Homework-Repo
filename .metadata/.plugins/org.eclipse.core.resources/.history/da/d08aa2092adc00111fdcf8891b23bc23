@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class GraphConsoleUI {
+	public static void main(String[] args){
+		processUserInput();
+		System.out.println("");
+		System.out.println("======End of Processing======");
+	}
+	
+	private static void processUserInput(){
+		Scanner scan = new Scanner(System.in);
+		String input = "";
+		
+		while(!input.equalsIgnoreCase("quit") && !input.equalsIgnoreCase("q")){
+			input = scan.nextLine().trim();
+			
+			if(!input.equalsIgnoreCase("quit") && !input.equalsIgnoreCase("q")){
+				if(!processInput(input)){
+					System.out.println("Invalid Command: " + input);
+				}
+			}
+		}
+	}
+	
+	private static boolean processInput(String input){
+		boolean toReturn = false;
+		
+		return toReturn;
+	}
+}

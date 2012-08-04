@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class GraphConsoleUI {
+	public static void main(String[] args){
+		processUserInput();
+		System.out.println("");
+		System.out.println("======End of Processing======");
+	}
+	
+	private static void processUserInput(){
+		Scanner scan = new Scanner(System.in);
+		String input = "";
+		
+		while(!input.equalsIgnoreCase("quit") && !input.equalsIgnoreCase("q")){
+			System.out.println("Enter a command(help for help menu): ");
+			input = scan.nextLine().trim();
+			
+			if(!input.equalsIgnoreCase("quit") && !input.equalsIgnoreCase("q")){
+				if(!processInput(input)){
+					System.out.println("Invalid Command: " + input);
+				}
+			}
+		}
+	}
+	
+	private static boolean processInput(String input){
+		boolean toReturn = false;
+		String[] parsedInput = input.split("\\s+");
+		
+		if(parsedInput[0].equalsIgnoreCase("help") || parsedInput[0].equalsIgnoreCase("h") || parsedInput[0].equals("?")){
+			printHelp();
+		}
+		
+		return toReturn;
+	}
+	
+	private static void printHelp(){
+		System.out.println("======Command List======");
+		System.out.printf("%25s - %-12 %n", "Command", "Description");
+		System.out.printf("%25s - %-12 %n", "help( or h or ?)", "Displays the help menu");
+	}
+}

@@ -1,0 +1,66 @@
+import java.util.Scanner;
+
+public class GraphConsoleUI {
+	public static void main(String[] args){
+		processUserInput();
+		System.out.println("");
+		System.out.println("======End of Processing======");
+	}
+	
+	private static void processUserInput(){
+		Scanner scan = new Scanner(System.in);
+		Graph g = null;
+		String input = "";
+		
+		g = new Graph();
+		System.out.println("Graph Created");
+		try{
+			g.addVertex(new Vertex(1), null, 1);
+			System.out.println("Vertex 1 created");
+			System.out.println("");
+			
+			while(!input.equalsIgnoreCase("quit") && !input.equalsIgnoreCase("q")){
+				System.out.println("Enter a command(help for help menu): ");
+				input = scan.nextLine().trim();
+			
+				if(!input.equalsIgnoreCase("quit") && !input.equalsIgnoreCase("q")){
+					if(!processInput(input, g)){
+						System.out.println("Invalid Command: " + input);
+					}
+				}
+			}
+		}catch(Exception e){
+			System.err.println("There was an error creating the first vertex");
+			e.printStackTrace();
+		}
+	}
+	
+	private static boolean processInput(String input, Graph g){
+		boolean toReturn = false;
+		String[] parsedInput = input.split("\\s+");
+		
+		if(parsedInput[0].equalsIgnoreCase("help") || parsedInput[0].equalsIgnoreCase("h") || parsedInput[0].equals("?")){
+			printHelp();
+			toReturn = true;
+		}else if(parsedInput[0].equalsIgnoreCase("size")){
+			printSize(g);
+			toReturn = true;
+		}
+		
+		return toReturn;
+	}
+	
+	private static void printSize(Graph g){
+		System.out.println("The graph has " + g.size() + " verticies");
+	}
+	
+	private static void printHelp(){
+		System.out.println("======Command List======");
+		System.out.printf("%25s     %-12s %n", "Command", "Description");
+		System.out.printf("%25s     %-12s %n", "size", "Displays the number of vertices in the Graph");
+		System.out.printf("%25s     %-12s %n", "add x y z", "Add a new vertex x with an edge of direction z between x and y. " + 
+				"(z = 0 for a bidirectional edge, z = 1 for an edge from y to x, and z = 2 for an edge from x to y)");
+		System.out.printf("%25s     %-12s %n", "help( or h or ?)", "Displays the help menu");
+		System.out.printf("%25s     %-12s %n", "quit( or q)", "Quits the program");
+	}
+}

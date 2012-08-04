@@ -1,0 +1,145 @@
+import java.util.Scanner;
+
+public class GraphConsoleUI {
+	public static void main(String[] args){
+		processUserInput();
+		System.out.println("");
+		System.out.println("======End of Processing======");
+	}
+	
+	private static void processUserInput(){
+		Scanner scan = new Scanner(System.in);
+		Graph g = null;
+		String input = "";
+		
+		g = new Graph();
+		System.out.println("Graph Created");
+		try{
+			g.addVertex(new Vertex(1), null, 1);
+			System.out.println("Vertex 1 created");
+			System.out.println("");
+			
+			while(!input.equalsIgnoreCase("quit") && !input.equalsIgnoreCase("q")){
+				System.out.println("Enter a command(help for help menu): ");
+				input = scan.nextLine().trim();
+			
+				if(!input.equalsIgnoreCase("quit") && !input.equalsIgnoreCase("q")){
+					if(!processInput(input, g)){
+						System.out.println("Invalid Command: " + input);
+					}
+				}
+			}
+		}catch(Exception e){
+			System.err.println("There was an error creating the first vertex");
+			e.printStackTrace();
+		}
+	}
+	
+	private static boolean processInput(String input, Graph g){
+		boolean toReturn = false;
+		String[] parsedInput = input.split("\\s+");
+		
+		if(parsedInput[0].equalsIgnoreCase("help") || parsedInput[0].equalsIgnoreCase("h") || parsedInput[0].equals("?")){
+			printHelp();
+			toReturn = true;
+		}else if(parsedInput[0].equalsIgnoreCase("size")){
+			printSize(g);
+			toReturn = true;
+		}else if(parsedInput[0].equalsIgnoreCase("add")){
+			toReturn = processAddInput(parsedInput, g);
+		}else if(parsedInput[0].equalsIgnoreCase("labels") || parsedInput[0].equalsIgnoreCase("l")){
+			printLabels(g);
+			toReturn = true;
+		}else if(parsedInput[0].equalsIgnoreCase("adjlist") || parsedInput[0].equalsIgnoreCase("alist")){
+			printAList(g);
+			toReturn = true;
+		}else if(parsedInput[0].equalsIgnoreCase("adjmatrix") || parsedInput[0].equalsIgnoreCase("amatrix")){
+			printAMatrix(g);
+			toReturn = true;
+		}else if(parsedInput[0].equalsIgnoreCase("adde") || parsedInput[0].equalsIgnoreCase("addedge")){
+			toReturn = processAddEdgeInput(parsedInput, g);
+		}
+		
+		return toReturn;
+	}
+	
+	private static boolean processAddEdgeInput(String[] args, Graph g){
+		boolean toReturn = false;
+		int v1 = 0;
+		int v2 = 0;
+		int direction = 0;
+		
+		if(args.length == 4){
+			
+		}else{
+			System.out.println("Error! addedge command must have exactly 3 arguments")
+		}
+		
+		
+		return toReturn;
+	}
+	
+	private static boolean processAddInput(String[] arguments, Graph g){
+		boolean toReturn = false;
+		int newV = 0;
+		int afterV = 0;
+		int directionV = 0;
+		
+		if(arguments.length == 4){
+			try{
+				newV = Integer.parseInt(arguments[1]);
+				afterV = Integer.parseInt(arguments[2]);
+				directionV = Integer.parseInt(arguments[3]);
+				
+				if(!g.vertexExists(new Vertex(newV)) && g.vertexExists(new Vertex(afterV))){
+					try{
+						g.addVertex(new Vertex(newV), new Vertex(afterV), directionV);
+						toReturn = true;
+					}catch(Exception e){
+						System.out.println("Error! " + e.getMessage());
+					}
+				}else{
+					System.out.println("Error! Make sure the the vertex you are adding(" + newV + ") does not already exist and the vertex you attaching it to(" +
+							afterV + ") does exist.");
+				}
+			}catch(NumberFormatException nfe){
+				System.out.println("Error! add command arguments must be integers.");
+			}
+		}else{
+			System.out.println("Error! add command must have exactly 3 arguments.");
+		}
+			
+		return toReturn;
+	}
+	
+	private static void printLabels(Graph g){
+		g.printVertexList();
+	}
+	
+	private static void printSize(Graph g){
+		System.out.println("The graph has " + g.size() + " vertices");
+	}
+	
+	private static void printAList(Graph g){
+		g.printAdjacencyList();
+	}
+	
+	private static void printAMatrix(Graph g){
+		g.printAdjacencyMatrix();
+	}
+	
+	private static void printHelp(){
+		System.out.println("======Command List======");
+		System.out.printf("%25s     %-12s %n", "Command", "Description");
+		System.out.printf("%25s     %-12s %n", "size", "Displays the number of vertices in the Graph");
+		System.out.printf("%25s     %-12s %n", "add x y z", "Add a new vertex x with an edge of direction z between x and y. " + 
+				"(z = 0 for a bidirectional edge, z = 1 for an edge from y to x, and z = 2 for an edge from x to y)");
+		System.out.printf("%25s     %-12", "addedge x y z", "Add a edge between vertex x and vertex y with direction z. " +
+				"(z = 0 for a bidirectional edge, z = 1 for an edge from y to x, and z = 3 for an edge from x to y)");
+		System.out.printf("%25s     %-12s %n", "labels(or l)", "Lists all the labels of the vertices in the graph");
+		System.out.printf("%25s     %-12s %n", "adjlist(or alist)", "Prints the adjacency list of the graph");
+		System.out.printf("%25s     %-12s %n", "adjmatrix(or amatrix)", "Prints the adjacency matrix of the graph");
+		System.out.printf("%25s     %-12s %n", "help( or h or ?)", "Displays the help menu");
+		System.out.printf("%25s     %-12s %n", "quit( or q)", "Quits the program");
+	}
+}

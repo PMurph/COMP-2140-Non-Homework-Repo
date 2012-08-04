@@ -1,0 +1,6 @@
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PriorityQueue\PriorityQueue\bin\Debug\PriorityQueue.exe.config
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PriorityQueue\PriorityQueue\bin\Debug\PriorityQueue.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PriorityQueue\PriorityQueue\bin\Debug\PriorityQueue.pdb
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PriorityQueue\PriorityQueue\obj\Debug\PriorityQueue.csprojResolveAssemblyReference.cache
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PriorityQueue\PriorityQueue\obj\Debug\PriorityQueue.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PriorityQueue\PriorityQueue\obj\Debug\PriorityQueue.pdb

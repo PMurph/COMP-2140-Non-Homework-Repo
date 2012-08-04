@@ -1,0 +1,6 @@
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Queue\Queue\bin\Debug\Queue.exe.config
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Queue\Queue\bin\Debug\Queue.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Queue\Queue\bin\Debug\Queue.pdb
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Queue\Queue\obj\Debug\Queue.csprojResolveAssemblyReference.cache
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Queue\Queue\obj\Debug\Queue.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Queue\Queue\obj\Debug\Queue.pdb

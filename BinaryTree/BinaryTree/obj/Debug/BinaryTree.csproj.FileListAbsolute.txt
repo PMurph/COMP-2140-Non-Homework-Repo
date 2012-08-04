@@ -1,0 +1,6 @@
+F:\Documents\Education\Spring 2012\COMP 2140\Public\BinaryTree\BinaryTree\bin\Debug\BinaryTree.exe.config
+F:\Documents\Education\Spring 2012\COMP 2140\Public\BinaryTree\BinaryTree\bin\Debug\BinaryTree.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\BinaryTree\BinaryTree\bin\Debug\BinaryTree.pdb
+F:\Documents\Education\Spring 2012\COMP 2140\Public\BinaryTree\BinaryTree\obj\Debug\BinaryTree.csprojResolveAssemblyReference.cache
+F:\Documents\Education\Spring 2012\COMP 2140\Public\BinaryTree\BinaryTree\obj\Debug\BinaryTree.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\BinaryTree\BinaryTree\obj\Debug\BinaryTree.pdb

@@ -1,0 +1,6 @@
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Stack\Stack\bin\Debug\Stack.exe.config
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Stack\Stack\obj\Debug\Stack.csprojResolveAssemblyReference.cache
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Stack\Stack\bin\Debug\Stack.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Stack\Stack\bin\Debug\Stack.pdb
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Stack\Stack\obj\Debug\Stack.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\Stack\Stack\obj\Debug\Stack.pdb

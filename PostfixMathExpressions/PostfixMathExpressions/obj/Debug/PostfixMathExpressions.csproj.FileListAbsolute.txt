@@ -1,0 +1,6 @@
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PostfixMathExpressions\PostfixMathExpressions\bin\Debug\PostfixMathExpressions.exe.config
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PostfixMathExpressions\PostfixMathExpressions\bin\Debug\PostfixMathExpressions.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PostfixMathExpressions\PostfixMathExpressions\bin\Debug\PostfixMathExpressions.pdb
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PostfixMathExpressions\PostfixMathExpressions\obj\Debug\PostfixMathExpressions.csprojResolveAssemblyReference.cache
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PostfixMathExpressions\PostfixMathExpressions\obj\Debug\PostfixMathExpressions.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\PostfixMathExpressions\PostfixMathExpressions\obj\Debug\PostfixMathExpressions.pdb
