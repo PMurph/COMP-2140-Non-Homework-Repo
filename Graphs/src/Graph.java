@@ -145,6 +145,30 @@ public class Graph {
 		return toReturn;
 	}
 	
+	public Edge getEdge(Vertex v1, Vertex v2, int direction){
+		Edge toReturn = null;
+		Edge curE = null;
+		
+		for(int i = 0; i < edges.size(); i++){
+			curE = edges.get(i);
+			
+			if(curE.getDirection() == 0 && curE.getDirection() == direction){
+				if((curE.getLeft().equals(v1) && curE.getRight().equals(v2))||(curE.getLeft().equals(v2) && curE.getRight().equals(v1))){
+					toReturn = curE;
+					break;
+				}
+			}else if(curE.getDirection() == 1 && curE.getLeft().equals(v1) && curE.getRight().equals(v2) && curE.getDirection() == direction){
+				toReturn = curE;
+				break;
+			}else if(curE.getDirection() == 2 && curE.getLeft().equals(v2) && curE.getRight().equals(v1) && curE.getDirection() == direction){
+				toReturn = curE;
+				break;
+			}
+		}
+		
+		return toReturn;
+	}
+	
 	public int size(){
 		return vertexes.size();
 	}
@@ -215,6 +239,7 @@ public class Graph {
 	public void printAdjacencyMatrix(){
 		Vertex curV = null;
 		Vertex curV2 = null;
+		Edge curE = null;
 		
 		System.out.println("Adjacency Matrix:");
 		System.out.printf("%5s", " ");
@@ -229,8 +254,14 @@ public class Graph {
 			System.out.printf("%5s", curV.getLabel());
 			for(int j = 0; j < vertexes.size(); j++){
 				curV2 = vertexes.get(j);
-				if(hasEdge(curV, curV2)){
-					System.out.printf("%5d", curV2.getLabel());
+				
+				curE = getEdge(curV, curV2, 0);
+				if(curE == null)
+					curE = getEdge(curV, curV2, 1);
+				if(curE == null)
+					curE = getEdge(curV, curV2, 2);
+				if(curE != null){
+					System.out.printf("%5d", curE.getWeight());
 				}else{
 					System.out.printf("%5s", " ");
 				}
@@ -239,7 +270,15 @@ public class Graph {
 		}
 	}
 	
-	private boolean hasEdge(Vertex v1, Vertex v2){
+	public void setEdgeWeight(Vertex v1, Vertex v2, int newWeight){
+		for(int i = 0; i < edges.size(); i++){
+			if((edges.get(i).getLeft().equals(v1) && edges.get(i).getRight().equals(v2)) || (edges.get(i).getRight().equals(v1) && edges.get(i).getLeft().equals(v2))){
+				edges.get(i).setWeight(newWeight);
+			}
+		}
+	}
+	
+	public boolean hasEdge(Vertex v1, Vertex v2){
 		boolean toReturn = false;
 		Edge curEdge = null;
 		

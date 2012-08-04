@@ -62,6 +62,37 @@ public class GraphConsoleUI {
 			toReturn = processDFTInput(parsedInput, g);
 		}else if(parsedInput[0].equalsIgnoreCase("bftraversal") || parsedInput[0].equalsIgnoreCase("bft") || parsedInput[0].equalsIgnoreCase("breadthfirsttraveral")){
 			toReturn = processBFTInput(parsedInput, g);
+		}else if(parsedInput[0].equalsIgnoreCase("setew") || parsedInput[0].equalsIgnoreCase("seteweight") || parsedInput[0].equalsIgnoreCase("setedgew") || 
+				parsedInput[0].equalsIgnoreCase("setedgeweight")){
+			toReturn = processSEWInput(parsedInput, g);
+		}
+		
+		return toReturn;
+	}
+	
+	private static boolean processSEWInput(String[] args, Graph g){
+		boolean toReturn = false;
+		int v1 = 0;
+		int v2 = 0;
+		int weight = 0;
+		
+		if(args.length == 4){
+			try{
+				v1 = Integer.parseInt(args[1]);
+				v2 = Integer.parseInt(args[2]);
+				weight = Integer.parseInt(args[3]);
+				
+				if(g.hasEdge(new Vertex(v1), new Vertex(v2))){
+					g.setEdgeWeight(new Vertex(v1), new Vertex(v2), weight);
+					toReturn = true;
+				}else{
+					System.out.println("Error! make sure the edge that you want to set the weight of exists");
+				}
+			}catch(NumberFormatException nfe){
+				System.out.println("Error! setweight command arguments must be integers.");
+			}
+		}else{
+			System.out.println("Error! seteweight command must have exactly 1 argument.");
 		}
 		
 		return toReturn;
@@ -221,9 +252,10 @@ public class GraphConsoleUI {
 				"(z = 0 for a bidirectional edge, z = 1 for an edge from y to x, and z = 2 for an edge from x to y)");
 		System.out.printf("%25s     %-12s %n", "dftraversal x", "Prints a depth first traversal beginning at vertex x.");
 		System.out.printf("%25s     %-12s %n", "bftraversal x", "Prints a breadth first traversal beginning at vertex x.");
-		System.out.printf("%25s     %-12s %n", "labels(or l)", "Lists all the labels of the vertices in the graph");
-		System.out.printf("%25s     %-12s %n", "adjlist(or alist)", "Prints the adjacency list of the graph");
-		System.out.printf("%25s     %-12s %n", "adjmatrix(or amatrix)", "Prints the adjacency matrix of the graph");
+		System.out.printf("%25s     %-12s %n", "labels(or l)", "Lists all the labels of the vertices in the graph.");
+		System.out.printf("%25s     %-12s %n", "adjlist(or alist)", "Prints the adjacency list of the graph.");
+		System.out.printf("%25s     %-12s %n", "adjmatrix(or amatrix)", "Prints the adjacency matrix of the graph.");
+		System.out.printf("%25s     %-12s $n", "seteweight x y z", "Sets the weight of the edges, from x to y, to z.");
 		System.out.printf("%25s     %-12s %n", "help( or h or ?)", "Displays the help menu");
 		System.out.printf("%25s     %-12s %n", "quit( or q)", "Quits the program");
 	}
