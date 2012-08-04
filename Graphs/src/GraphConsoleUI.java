@@ -65,7 +65,33 @@ public class GraphConsoleUI {
 		}else if(parsedInput[0].equalsIgnoreCase("setew") || parsedInput[0].equalsIgnoreCase("seteweight") || parsedInput[0].equalsIgnoreCase("setedgew") || 
 				parsedInput[0].equalsIgnoreCase("setedgeweight")){
 			toReturn = processSEWInput(parsedInput, g);
+		}else if(parsedInput[0].equalsIgnoreCase("getshortest") || parsedInput[0].equalsIgnoreCase("gets")){
+			toReturn = processSPInput(parsedInput, g);
 		}
+		return toReturn;
+	}
+	
+	private static boolean processSPInput(String[] args, Graph g){
+		boolean toReturn = false;
+		int v1 = 0;
+		int v2 = 0;
+		
+		if(args.length == 3){
+			try{
+				v1 = Integer.parseInt(args[1]);
+				v2 = Integer.parseInt(args[2]);
+				
+				if(g.vertexExists(new Vertex(v1)) && g.vertexExists(new Vertex(v2))){
+					System.out.println("Shortest path from " + v1 + " to " + v2 + " is " + g.shortestPath(new Vertex(v1), new Vertex(v2)));
+					toReturn = true;
+				}
+			}catch(NumberFormatException nfe){
+				System.out.println("Error! getshortest command arguments must be integers");
+			}
+		}else{
+			System.out.println("Error! getshortest command must have exactly 2 arguments");
+		}
+		
 		
 		return toReturn;
 	}
@@ -255,7 +281,8 @@ public class GraphConsoleUI {
 		System.out.printf("%25s     %-12s %n", "labels(or l)", "Lists all the labels of the vertices in the graph.");
 		System.out.printf("%25s     %-12s %n", "adjlist(or alist)", "Prints the adjacency list of the graph.");
 		System.out.printf("%25s     %-12s %n", "adjmatrix(or amatrix)", "Prints the adjacency matrix of the graph.");
-		System.out.printf("%25s     %-12s $n", "seteweight x y z", "Sets the weight of the edges, from x to y, to z.");
+		System.out.printf("%25s     %-12s %n", "seteweight x y z", "Sets the weight of the edges, from x to y, to z.");
+		System.out.printf("%25s     %-12s %n", "getshortest x y", "Returns the shortest path between x and y.");
 		System.out.printf("%25s     %-12s %n", "help( or h or ?)", "Displays the help menu");
 		System.out.printf("%25s     %-12s %n", "quit( or q)", "Quits the program");
 	}

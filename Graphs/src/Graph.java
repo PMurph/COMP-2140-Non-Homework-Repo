@@ -27,11 +27,18 @@ public class Graph {
 		return vertexes.size() == 0;
 	}
 	
-	public int shortestPath(Vertex start){
+	public int shortestPath(Vertex start, Vertex end){
 		int toReturn = -1;
 		int[] labels = new int[vertexes.size()];
 		int[] previous = new int[vertexes.size()];
 		int[] distance = new int[vertexes.size()];
+		Queue toCheck = new Queue();
+		int added = 0;
+		int index = 0;
+		int index_prev = 0;
+		Vertex curV = null;
+		Edge curE = null;
+		ArrayList<Vertex> seen = new ArrayList<Vertex>();
 		
 		for(int i = 0; i < vertexes.size(); i++){
 			labels[i] = vertexes.get(i).getLabel();
@@ -43,9 +50,86 @@ public class Graph {
 			}
 		}
 		
+		toCheck.enqueue(start);
 		
+		while(!toCheck.isEmpty()){
+			curV = toCheck.dequeue();
+			
+			for(int i = 0; i < edges.size(); i++){
+				curE = edges.get(i);
+				
+				if(curE.getDirection() == 0){
+					if(curE.getLeft().equals(curV)){
+						for(int j = 0; j < labels.length; j++){
+							if(labels[j] == curE.getLeft().getLabel()){
+								index_prev = j;
+							}
+							if(labels[j] == curE.getRight().getLabel()){
+								index = j;
+							}
+						}
+						if(distance[index] == -1 || distance[index] > distance[index_prev] + curE.getWeight()){
+							distance[index] = distance[index_prev] + curE.getWeight();
+							previous[index] = curV.getLabel();
+							toCheck.enqueue(curE.getRight());
+						}
+						
+					}else if(curE.getRight().equals(curV)){
+						for(int j = 0; j < labels.length; j++){
+							if(labels[j] == curE.getRight().getLabel()){
+								index_prev = j;
+							}
+							if(labels[j] == curE.getLeft().getLabel()){
+								index = j;
+							}
+						}
+						if(distance[index] == -1 || distance[index] > distance[index_prev] + curE.getWeight()){
+							distance[index] = distance[index_prev] + curE.getWeight();
+							previous[index] = curV.getLabel();
+							toCheck.enqueue(curE.getLeft());
+						}
+					}
+				}else if(curE.getDirection() == 1){
+					if(curE.getLeft().equals(curV)){
+						for(int j = 0; j < labels.length; j++){
+							if(labels[j] == curE.getLeft().getLabel()){
+								index_prev = j;
+							}
+							if(labels[j] == curE.getRight().getLabel()){
+								index = j;
+							}
+						}
+						if(distance[index] == -1 || distance[index] > distance[index_prev] + curE.getWeight()){
+							distance[index] = distance[index_prev] + curE.getWeight();
+							previous[index] = curV.getLabel();
+							toCheck.enqueue(curE.getRight());
+						}
+					}
+				}else if(curE.getDirection() == 2){
+					if(curE.getRight().equals(curV)){
+						for(int j = 0; j < labels.length; j++){
+							if(labels[j] == curE.getRight().getLabel()){
+								index_prev = j;
+							}
+							if(labels[j] == curE.getLeft().getLabel()){
+								index = j;
+							}
+						}
+						if(distance[index] == -1 || distance[index] > distance[index_prev] + curE.getWeight()){
+							distance[index] = distance[index_prev] + curE.getWeight();
+							previous[index] = curV.getLabel();
+							toCheck.enqueue(curE.getLeft());
+						}
+					}
+				}
+			}
+		}
 		
-		//TODO: Finish shortest path algorithm
+		for(int i = 0; i < labels.length; i++){
+			if(labels[i] == end.getLabel()){
+				toReturn = distance[i];
+			}
+		}
 		
 		return toReturn;
 	}
@@ -293,7 +377,7 @@ public class Graph {
 					toReturn = true;
 				}
 			}else if(curEdge.getDirection() == 2){
-				if(curEdge.getRight().equals(v2) && curEdge.getLeft().equals(v1)){
+				if(curEdge.getRight().equals(v1) && curEdge.getLeft().equals(v2)){
 					toReturn = true;
 				}
 			}
