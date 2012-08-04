@@ -9,6 +9,7 @@ public class CircularLinkedList {
 		dummyNode.setNext(dummyNode);
 		dummyNode.setPrev(dummyNode);
 	    size = 0;
+	    dummy = dummyNode;
 	}
 	
 	public void insertAtFront(int toInsert){

@@ -58,6 +58,39 @@ public class GraphConsoleUI {
 			toReturn = true;
 		}else if(parsedInput[0].equalsIgnoreCase("adde") || parsedInput[0].equalsIgnoreCase("addedge")){
 			toReturn = processAddEdgeInput(parsedInput, g);
+		}else if(parsedInput[0].equalsIgnoreCase("dftraversal") || parsedInput[0].equalsIgnoreCase("dft") || parsedInput[0].equalsIgnoreCase("depthfirsttraversal")){
+			toReturn = processDFTInput(parsedInput, g);
+		}
+		
+		return toReturn;
+	}
+	
+	private static boolean processDFTInput(String[] args, Graph g){
+		boolean toReturn = false;
+		int v1 = 0;
+		Queue traversal = null;
+		
+		if(args.length == 2){
+			try{
+				v1 = Integer.parseInt(args[1]);
+				
+				if(g.vertexExists(new Vertex(v1))){
+					traversal = g.depthFirstTraversal(new Vertex(v1));
+					
+					while(!traversal.isEmpty()){
+						System.out.print(traversal.dequeue().getLabel() + " ");
+					}
+					System.out.println();
+					
+					toReturn = true;
+				}else{
+					System.out.println("Error! Make sure the vertex you are starting the depth first traversal from exists.");
+				}
+			}catch(NumberFormatException nfe){
+				System.out.println("Error! dftraversal command argument must be an integer.");
+			}
+		}else{
+			System.out.println("Error! dftraversal command must have exactly 1 argument.");
 		}
 		
 		return toReturn;
@@ -83,7 +116,7 @@ public class GraphConsoleUI {
 						System.out.println("Error! " + e.getMessage());
 					}
 				}else{
-					System.out.println("Error! Make sure the verticies you are making an edge between exist");
+					System.out.println("Error! Make sure the verticies you are making an edge between exist.");
 				}
 			}catch(NumberFormatException nfe){
 				System.out.println("Error! addedge command arguments must be integers.");
@@ -152,7 +185,8 @@ public class GraphConsoleUI {
 		System.out.printf("%25s     %-12s %n", "add x y z", "Add a new vertex x with an edge of direction z between x and y. " + 
 				"(z = 0 for a bidirectional edge, z = 1 for an edge from y to x, and z = 2 for an edge from x to y)");
 		System.out.printf("%25s     %-12", "addedge x y z", "Add a edge between vertex x and vertex y with direction z. " +
-				"(z = 0 for a bidirectional edge, z = 1 for an edge from y to x, and z = 3 for an edge from x to y)");
+				"(z = 0 for a bidirectional edge, z = 1 for an edge from y to x, and z = 2 for an edge from x to y)");
+		System.out.printf("%25s     %-12s %n", "dftraversal x", "Prints a depth first traversal beginning at vertex x");
 		System.out.printf("%25s     %-12s %n", "labels(or l)", "Lists all the labels of the vertices in the graph");
 		System.out.printf("%25s     %-12s %n", "adjlist(or alist)", "Prints the adjacency list of the graph");
 		System.out.printf("%25s     %-12s %n", "adjmatrix(or amatrix)", "Prints the adjacency matrix of the graph");
