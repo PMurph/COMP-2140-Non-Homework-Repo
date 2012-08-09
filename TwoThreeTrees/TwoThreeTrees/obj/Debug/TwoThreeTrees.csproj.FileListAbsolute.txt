@@ -1,1 +1,6 @@
 F:\Documents\Education\Spring 2012\COMP 2140\Public\TwoThreeTrees\TwoThreeTrees\bin\Debug\TwoThreeTrees.exe.config
+F:\Documents\Education\Spring 2012\COMP 2140\Public\TwoThreeTrees\TwoThreeTrees\bin\Debug\TwoThreeTrees.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\TwoThreeTrees\TwoThreeTrees\bin\Debug\TwoThreeTrees.pdb
+F:\Documents\Education\Spring 2012\COMP 2140\Public\TwoThreeTrees\TwoThreeTrees\obj\Debug\TwoThreeTrees.csprojResolveAssemblyReference.cache
+F:\Documents\Education\Spring 2012\COMP 2140\Public\TwoThreeTrees\TwoThreeTrees\obj\Debug\TwoThreeTrees.exe
+F:\Documents\Education\Spring 2012\COMP 2140\Public\TwoThreeTrees\TwoThreeTrees\obj\Debug\TwoThreeTrees.pdb
