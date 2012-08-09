@@ -293,7 +293,7 @@ namespace TwoThreeTrees
             
             Console.Out.WriteLine("====Test4===");
             Console.Out.WriteLine(">Tests adding 100 random values to the tree");
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 adding = r.Next(4500) + 1;
                 Console.Out.WriteLine("Adding " + adding.ToString());
